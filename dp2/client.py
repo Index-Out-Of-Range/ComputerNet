@@ -12,7 +12,7 @@ client_socket = socket(AF_INET, SOCK_DGRAM)
 for i in range(10):
     try:
         start_time = time.time()
-        client_socket.sendto('A'.encode(), (HOST, PORT))
+        client_socket.sendto(f'{time.time()} {i} a'.encode(), (HOST, PORT))
         client_socket.settimeout(1.0)
 
         message, address = client_socket.recvfrom(1024)
@@ -30,6 +30,7 @@ for i in range(10):
     except timeout:
         loss_count += 1
         print("Request timeout")
+client_socket.close()
 
 print("Minimum RTT: {}".format(minimum))
 print("Maximum RTT: {}".format(maximum))
